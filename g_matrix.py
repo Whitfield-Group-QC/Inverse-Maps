@@ -24,6 +24,10 @@ def fenwick_G_matrix(N):
     pass
 
 def random_enc_G_matrix(N):
+    '''
+    Makes random matrix in GLNF2: Corresponds to random encoding via 
+    conjugating Jordan Wigner by CNOTS
+    '''
     mat = np.random.randint(0,2,(N,N))
     while int(np.linalg.det(mat)) % 2 != 1:
         mat = np.random.randint(0,2,(N,N))

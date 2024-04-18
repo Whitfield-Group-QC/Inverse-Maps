@@ -22,9 +22,19 @@ if __name__ == "__main__":
     x_pauli_majs_pruned, z_pauli_majs_pruned, J_inv_p = paulis_maj_string_from_G_matrix(G_pruned, N)
     x_pauli_majs_opt, z_pauli_majs_opt, J_inv_o = paulis_maj_string_from_G_matrix(G_opt, N)
     
+    
+    
+    '''
+    Given the serpinski encoding, finding what a product of majoranas
+    is in terms of that encoding
+    '''
     maj_mat = BSM_arrs(G_opt, N)
     p = majs_to_Pauli(maj_mat, N, [1,0,0,1,0,0,0,0,0,0])
     
+    '''
+    Given the serpinski encoding, finding what a pauli is in terms of the 
+    majoranas of that encoding
+    '''
     maj = p_2_mat(J_inv_o, N, 'IYIII')
     
     #print(x_pauli_majs_pruned)

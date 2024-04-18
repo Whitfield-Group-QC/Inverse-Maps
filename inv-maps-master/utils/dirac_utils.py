@@ -39,6 +39,11 @@ def paulis_maj_string_from_G_matrix(G, N):
 
 def p_2_mat(J_inv, N, pstr):
     
+    """
+    Given an inverse matrix, N, and a desired pauli string, does the column 
+    addition to turn that pauli into a product of majoranas of the encoding
+    """
+    
     ops_r = {'I': (0,0), 'X': (1,0), 'Z': (0,1), 'Y': (1,1)}
     p_list = np.array([0]*2*N)
     for let in range(len(pstr)):
