@@ -1,3 +1,5 @@
+import numpy as np
+
 def multiply(majc, majp):
     
     m_dict = {('I', 'I'): ['I', 1], ('X', 'I'): ['X', 1], ('I', 'X'): ['X', 1], 
@@ -15,27 +17,41 @@ def multiply(majc, majp):
         #print(majc[0][lett], m_dict[key][0])
         new_word += m_dict[key][0]
         #print(majc[1])
-        new_phase = new_phase * m_dict[key][1]
+        new_phase = new_phase * np.conj(m_dict[key][1])
+        #print(new_phase)
     majc = (new_word, new_phase)
     return majc
         
     
 def sign_check(J_inv, majs, xps, zps, N):
     
-    #Do Z-check_first 
-    for row in range(len(J_inv.T)//2):
-        majc = ('I'*N, 1)
-        for maj in range(len(J_inv.T[row+N])):
-            if J_inv.T[row+N][maj] == 1:
-                majc = multiply(majc, majs[maj])
-        zps[row] = str(majc[1]) + ' '  + zps[row]
-                
+    #print(J_inv.T)
+    majf = majs[:N]
+    maje = majs[N:]
+    majs = [val for pair in zip(majf, maje) for val in pair]
     #x-check_first 
     for row in range(len(J_inv.T)//2):
         majc = ('I'*N, 1)
-        for maj in range(len(J_inv.T[row])):
-            if J_inv.T[row][maj] == 1:
+        new_row = J_inv.T[row]
+        new_rowup = new_row[:N]
+        new_rowp = new_row[N:]
+        new_rowf = [val for pair in zip(new_rowup, new_rowp) for val in pair]
+        for maj in range(len(new_rowf)):
+            if new_rowf[maj] == 1:
                 majc = multiply(majc, majs[maj])
         xps[row] = str(majc[1]) + ' ' + xps[row]
+    
+    #Do Z-check_first 
+    for row in range(len(J_inv.T)//2):
+        majc = ('I'*N, 1)
+        new_row = J_inv.T[row+N]
+        new_rowup = new_row[:N]
+        new_rowp = new_row[N:]
+        new_rowf = [val for pair in zip(new_rowup, new_rowp) for val in pair]
+        for maj in range(len(new_rowf)):
+            if new_rowf[maj] == 1:
+                majc = multiply(majc, majs[maj])
+        zps[row] = str(majc[1]) + ' '  + zps[row]
         
     return xps, zps
+
