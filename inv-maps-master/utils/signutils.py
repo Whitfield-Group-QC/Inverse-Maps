@@ -25,7 +25,7 @@ def multiply(majc, majp):
     
 def sign_check(J_inv, majs, xps, zps, N):
     
-    #print(J_inv.T)
+    phase_v = []
     majf = majs[:N]
     maje = majs[N:]
     majs = [val for pair in zip(majf, maje) for val in pair]
@@ -40,8 +40,8 @@ def sign_check(J_inv, majs, xps, zps, N):
             if new_rowf[maj] == 1:
                 majc = multiply(majc, majs[maj])
         xps[row] = str(majc[1]) + ' ' + xps[row]
+        phase_v.append(majc[1])
     
-    #Do Z-check_first 
     for row in range(len(J_inv.T)//2):
         majc = ('I'*N, 1)
         new_row = J_inv.T[row+N]
@@ -52,6 +52,7 @@ def sign_check(J_inv, majs, xps, zps, N):
             if new_rowf[maj] == 1:
                 majc = multiply(majc, majs[maj])
         zps[row] = str(majc[1]) + ' '  + zps[row]
+        phase_v.append(majc[1])
         
-    return xps, zps
+    return xps, zps, phase_v
 
