@@ -3,6 +3,7 @@ User level functions for dealing with encodings
 
 """
 
+import numpy as np
 from graph_generators.sierpinski import unfilled_sierpinski_with_children
 from utils.encoding_graph_utils import G_matrix_from_graph, greedy_remove_edges
 
@@ -23,5 +24,8 @@ def fenwick_G_matrix(N):
     pass
 
 def random_enc_G_matrix(N):
-    # TODO
-    pass
+    mat = np.round(np.random.rand(N,N))
+    if np.linalg.det(mat) % 2 == 0:
+        random_enc_G_matrix(N)
+    else:
+        return mat

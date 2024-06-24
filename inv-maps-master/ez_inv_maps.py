@@ -6,6 +6,7 @@ from g_matrix import pruned_sierpinski_G_matrix, optimized_sierpinski_G_matrix
 from utils.majoranas_utils import get_majoranas_from_G_matrix
 from utils.dirac_utils import paulis_maj_string_from_G_matrix
 from utils.signutils import sign_check
+import numpy as np
                 
 
 if __name__ == "__main__":
@@ -20,10 +21,7 @@ if __name__ == "__main__":
     x_pauli_majs_pruned, z_pauli_majs_pruned, J_inv = paulis_maj_string_from_G_matrix(G_pruned, N)
     x_pauli_majs_opt, z_pauli_majs_opt, J_inv2 = paulis_maj_string_from_G_matrix(G_opt, N)
 
-    xps, zps = sign_check(J_inv.todense(), majs_pruned, x_pauli_majs_pruned, z_pauli_majs_pruned, N)
+    xps, zps, phase_v = sign_check(J_inv.todense(), majs_pruned, x_pauli_majs_pruned, z_pauli_majs_pruned, N)
     print('corrected x: ', xps)
     print('corrected z: ', zps)
     print('majoranas: ', majs_pruned)
-
-                
-    
