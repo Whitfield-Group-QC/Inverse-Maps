@@ -11,7 +11,7 @@ def multiply(majc, majp):
     
     majc_str = majc[0]
     new_word = ''
-    new_phase = 1
+    new_phase = majc[1]
     for lett in range(len(majc_str)):
         key = (majc_str[lett], majp[lett])
         #print(majc[0][lett], m_dict[key][0])
