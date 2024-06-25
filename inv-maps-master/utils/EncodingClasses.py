@@ -98,7 +98,7 @@ class Encoding_with_Hamiltonians(Encoding):
             phase = 1
             for coeff in range(len(term)):
                 if term[coeff] == 1:
-                    base_str, p_phase = self.Pauli_mult(base_str, self.majoranas[coeff])
+                    base_str, p_phase = self.Pauli_mult(base_str, self.majs[coeff])
                     phase=p_phase*phase
             Symp_list = list(np.zeros(2*self.N))
             for lett in range(self.N):
@@ -107,6 +107,7 @@ class Encoding_with_Hamiltonians(Encoding):
                 elif base_str[lett] == 'Y':
                     Symp_list[lett] = 1
                     Symp_list[lett+self.N] = 1
+                    phase = phase * 1j
                 elif base_str[lett] == 'Z':
                     Symp_list[lett+self.N] = 1
             Spin_L.append(Symp_list)
@@ -118,10 +119,10 @@ class Spin_Hamiltonian:
     def __init__(self, N, Hamiltonian):
         
         self.N = N
-        if type(Hamiltonian[0][0] == type('II')):
+        if type(Hamiltonian[0][0]) == type('II'):
             self.Hamiltonian = self.Make_Sympletic(Hamiltonian)
             self.Written_H = Hamiltonian
-        elif type(Hamiltonian[0][0] == list):
+        elif type(Hamiltonian[0][0] == type([])):
             self.Hamiltonian = Hamiltonian
             self.Written_H = self.Make_Written
         
