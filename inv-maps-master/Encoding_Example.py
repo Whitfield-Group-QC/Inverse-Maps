@@ -1,6 +1,10 @@
-"""
-For Gus & Tom, an example really
-"""
+'''
+This is code written by Andrew Projansky, Jason Neicase, and Brent Harrison
+
+This is an example file for basic use of this repository. Specifically, 
+this example is to showcase using this code to get list of majoranas, 
+and X and Z paulis given a fermionic encoding defined by G matrix.
+'''
 
 from g_matrix import pruned_sierpinski_G_matrix, optimized_sierpinski_G_matrix
 from utils.majoranas_utils import get_majoranas_from_G_matrix
